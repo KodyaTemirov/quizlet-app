@@ -1,5 +1,9 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+import globalComponents from './components/global';
+const app = createApp(App);
 
-createApp(App).mount('#app')
+app.use(globalComponents);
+
+app.mount('#app');

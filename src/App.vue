@@ -14,6 +14,7 @@ const openModal = () => {
 <template>
 	<Nav />
 	<Header />
+	<Button :value="sdasd" />
 	<button v-on:click="openModal">Click</button>
 
 	<Modal :isOpen="isOpen" />
