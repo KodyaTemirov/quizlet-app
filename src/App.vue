@@ -2,9 +2,13 @@
 import { ref } from 'vue';
 import Nav from './components/Nav.vue';
 import Modal from './components/Modal.vue';
+import Card from './components/Card.vue';
+
 import Header from './components/Header.vue';
+import { store } from './store/store';
 
 const isOpen = ref(false);
+const { cards } = store;
 
 const openModal = () => {
 	isOpen.value = true;
@@ -14,8 +18,7 @@ const openModal = () => {
 <template>
 	<Nav />
 	<Header />
-	<Button :value="sdasd" />
-	<button v-on:click="openModal">Click</button>
-
-	<Modal :isOpen="isOpen" />
+	<Layout>
+		<router-view />
+	</Layout>
 </template>
