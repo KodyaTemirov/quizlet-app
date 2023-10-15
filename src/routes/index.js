@@ -12,7 +12,7 @@ const routes = [
 	},
 	{
 		path: "/card/:id",
-		name: "About",
+		name: "Card",
 		props: true,
 		component: DetailCard,
 	},
