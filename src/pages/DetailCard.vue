@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import { store } from '../store/store';
 import Toggle from '../components/Toggle.vue';
 const { cards } = store;
@@ -6,7 +7,26 @@ const props = defineProps(['id']);
 const card = cards[props.id - 1];
 const { title, description, terms } = card;
 
-const doneHandler = id => {};
+const sliderState = ref(terms);
+const result = ref(false);
+
+const nextHandler = id => {
+	if (id < terms.length) {
+		const nextActive = sliderState.value.map(item =>
+			item.id === id + 1
+				? { ...item, active: !item.active }
+				: { ...item, active: false }
+		);
+		sliderState.value = nextActive;
+	} else {
+		result.value = true;
+		console.log('ura');
+	}
+};
+
+const doneHandler = id => {
+	nextHandler(id);
+};
 
 const completed = terms.filter(item => item.completed === true);
 const unCompleted = terms.filter(item => item.completed === false);
@@ -32,13 +52,17 @@ const completedStyle = {
 		<p class="mt-4 text-gray-500 text-sm">
 			{{ description }}
 		</p>
+
 		<Toggle
-			v-for="{ id, term, definition, active } in terms"
+			v-show="result"
+			v-for="{ id, term, definition, active } in sliderState"
+			:count="terms.length"
 			:id="id"
 			:active="active"
 			:term="term"
 			:definition="definition"
 			:done-handler="doneHandler"
+			:key="`$${id}+${active}+${result}`"
 		/>
 	</div>
 	<div class="flex w-full my-4">
@@ -48,7 +72,7 @@ const completedStyle = {
 	<h3
 		class="text-orange-500 text-xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight mb-4"
 	>
-		Изучено ({{ unCompleted.length }})
+		Изучаю ({{ unCompleted.length }})
 	</h3>
 	<div class="flex gap-1 flex-col">
 		<div

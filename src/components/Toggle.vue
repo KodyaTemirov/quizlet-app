@@ -2,8 +2,9 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faX } from '@fortawesome/free-solid-svg-icons';
+import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faCheck, faX);
+library.add(faCheck, faX, faRankingStar);
 import { ref } from 'vue';
 import { TransitionRoot } from '@headlessui/vue';
 const props = defineProps([
@@ -13,8 +14,10 @@ const props = defineProps([
 	'active',
 	'doneHandler',
 	'doNotHandler',
+	'count',
 ]);
-const { id, term, definition, active, doneHandler, doNotHandler } = props;
+const { id, term, definition, active, doneHandler, doNotHandler, count } =
+	props;
 let isToggle = ref(true);
 
 const toggleHandler = () => {
@@ -67,6 +70,7 @@ const toggleHandler = () => {
 					class="rounded-full p-4 border w-6 h-6 border-solid border-gray-300 text-red-500 hover:bg-slate-200"
 				/>
 			</button>
+			<span>{{ id }} / {{ count }}</span>
 			<button @click="doneHandler(id)">
 				<font-awesome-icon
 					icon="fa-solid fa-check"
@@ -74,5 +78,19 @@ const toggleHandler = () => {
 				/>
 			</button>
 		</div>
+	</div>
+	<div
+		v-show="!id"
+		class="py-6 px-10 mt-4 text-center text-blue-900 flex justify-around items-center"
+	>
+		<div>
+			<div class="text-3xl font-bold mb-2">Замечательно!</div>
+			У вас есть еще другие термины для повтора.
+		</div>
+
+		<font-awesome-icon
+			icon="fa-solid fa-ranking-star"
+			class="text-green-500 text-9xl"
+		/>
 	</div>
 </template>
