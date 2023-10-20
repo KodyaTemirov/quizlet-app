@@ -64,7 +64,7 @@ const toggleHandler = () => {
 			</div>
 		</TransitionRoot>
 		<div class="flex gap-4 mt-4 items-center justify-center">
-			<button @click="doneHandler(id)">
+			<button @click="doNotHandler(id)">
 				<font-awesome-icon
 					icon="fa-solid fa-x"
 					class="rounded-full p-4 border w-6 h-6 border-solid border-gray-300 text-red-500 hover:bg-slate-200"
@@ -78,19 +78,5 @@ const toggleHandler = () => {
 				/>
 			</button>
 		</div>
-	</div>
-	<div
-		v-show="!id"
-		class="py-6 px-10 mt-4 text-center text-blue-900 flex justify-around items-center"
-	>
-		<div>
-			<div class="text-3xl font-bold mb-2">Замечательно!</div>
-			У вас есть еще другие термины для повтора.
-		</div>
-
-		<font-awesome-icon
-			icon="fa-solid fa-ranking-star"
-			class="text-green-500 text-9xl"
-		/>
 	</div>
 </template>
